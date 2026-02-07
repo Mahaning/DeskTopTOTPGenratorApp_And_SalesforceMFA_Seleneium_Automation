@@ -142,7 +142,7 @@ SalseforceMFA/
 src/main/resources/users.properties
 src/test/resources/users.properties
 .env
-*.properties
+*.properties    
 ```
 
 ---
@@ -274,6 +274,40 @@ This tool is for educational and authorized testing purposes only. Ensure you ha
 For issues, questions, or suggestions, please open an issue on GitHub or contact the project maintainer.
 
 ---
+
+## 🚧 Future Enhancements
+
+Planned features and improvements for upcoming releases:
+
+### Database Connectivity
+- [ ] **SQLite Integration** - Local embedded database for persistent user storage
+- [ ] **MySQL/PostgreSQL Support** - Cloud-hosted database backend for enterprise deployments
+- [ ] **User Credentials Storage** - Secure encrypted storage of usernames and TOTP secrets
+
+
+### Excel/Spreadsheet Integration
+- [ ] **XLS/XLSX Import** - Load users and TOTP secrets from Excel files
+  - Column format: `Username | Email | TOTP_Secret | Status`
+- [ ] **Bulk User Management** - Import multiple users at once from spreadsheet
+- [ ] **Scheduled Sync** - Automatically sync user data from Excel file at intervals
+- [ ] **CSV Support** - Alternative CSV format for user/key mapping
+
+### UI/UX Improvements
+- [ ] **Dark Mode** - Theme toggle for dark/light interface
+
+
+### Security & Authentication
+- [ ] **Login To App** - Add authentication to access the desktop app itself
+
+
+### DevOps & Deployment
+- [ ] **Docker Support** - Containerized deployment
+- [ ] **GitHub Actions CI/CD** - Automated build and test pipeline
+- [ ] **Release Automation** - Automated versioning and package distribution
+- [ ] **Installer Packages** - Windows MSI, macOS DMG, Linux DEB packages
+
+---
+
 
 ## 🎓 References
 

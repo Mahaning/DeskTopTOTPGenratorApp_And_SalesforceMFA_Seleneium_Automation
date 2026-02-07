@@ -1,14 +1,36 @@
 package TotpDesktopApp;
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.border.AbstractBorder;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JWindow;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.AbstractBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class UserSearchField extends JPanel {
 
@@ -25,7 +47,7 @@ public class UserSearchField extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(false);
 
-        // 🌿 TEXT FIELD (soft + rounded)
+        // TEXT FIELD (soft + rounded)
         field.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         field.setBorder(new RoundedBorder(16, new Color(210, 210, 210)));
         field.setBackground(Color.WHITE);
@@ -33,7 +55,7 @@ public class UserSearchField extends JPanel {
         field.setPreferredSize(new Dimension(260, 40));
         add(field, BorderLayout.CENTER);
 
-        // 🌿 SUGGESTION WINDOW
+        // SUGGESTION WINDOW
         suggestionWindow = new JWindow();
         suggestionWindow.setFocusableWindowState(false);
         setBorder(new RoundedBorder(16, new Color(210, 210, 210)));
@@ -53,21 +75,21 @@ public class UserSearchField extends JPanel {
 
         suggestionWindow.add(scroll);
 
-        // 🔎 FILTER WHILE TYPING
+        // FILTER WHILE TYPING
         field.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { updateSuggestions(); }
             public void removeUpdate(DocumentEvent e) { updateSuggestions(); }
             public void changedUpdate(DocumentEvent e) {}
         });
 
-        // 🖱 MOUSE SELECTION
+        // MOUSE SELECTION
         suggestionList.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 selectUser();
             }
         });
 
-        // ⌨ KEYBOARD HANDLING (TEXT FIELD)
+        // KEYBOARD HANDLING (TEXT FIELD)
         field.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -115,7 +137,7 @@ public class UserSearchField extends JPanel {
             }
         });
 
-        // 🔚 CLOSE ON FOCUS LOST
+        // CLOSE ON FOCUS LOST
         field.addFocusListener(new FocusAdapter() {
             public void focusLost(FocusEvent e) {
                 SwingUtilities.invokeLater(() -> hideSuggestions());
@@ -125,6 +147,7 @@ public class UserSearchField extends JPanel {
 
     // ================= LOGIC =================
 
+    // Update suggestion list based on current text input
     private void updateSuggestions() {
         String text = field.getText().trim().toLowerCase();
 
@@ -147,12 +170,14 @@ public class UserSearchField extends JPanel {
         showSuggestions(matches.size());
     }
 
+    // Show suggestion window if it's not already visible
     private void showIfHidden() {
         if (!suggestionWindow.isVisible()) {
             updateSuggestions();
         }
     }
 
+    // Position and show the suggestion window below the text field
     private void showSuggestions(int count) {
         Point p = field.getLocationOnScreen();
         suggestionWindow.setBounds(
@@ -164,10 +189,12 @@ public class UserSearchField extends JPanel {
         suggestionWindow.setVisible(true);
     }
 
+    // Hide the suggestion window
     private void hideSuggestions() {
         suggestionWindow.setVisible(false);
     }
 
+    // Handle user selection from the suggestion list
     private void selectUser() {
         String user = suggestionList.getSelectedValue();
         if (user == null) return;
@@ -182,6 +209,7 @@ public class UserSearchField extends JPanel {
 
     // ================= API =================
 
+    // Set callback to be invoked when a user is selected
     public void setOnUserSelected(Consumer<String> callback) {
         this.onUserSelected = callback;
     }
@@ -192,6 +220,7 @@ public class UserSearchField extends JPanel {
 
     // ================= ROUNDED BORDER =================
 
+    // Custom rounded border for text field and suggestion window
     static class RoundedBorder extends AbstractBorder {
 
         private final int radius;
@@ -202,6 +231,7 @@ public class UserSearchField extends JPanel {
             this.color = color;
         }
 
+        // Paint the rounded border
         @Override
         public void paintBorder(
                 Component c, Graphics g,
@@ -218,11 +248,13 @@ public class UserSearchField extends JPanel {
             );
         }
 
+        // Define insets to ensure proper spacing for the rounded border
         @Override
         public Insets getBorderInsets(Component c) {
             return new Insets(10, 14, 10, 14);
         }
 
+        // Overloaded method to provide insets with custom values
         @Override
         public Insets getBorderInsets(Component c, Insets insets) {
             insets.left = insets.right = 14;

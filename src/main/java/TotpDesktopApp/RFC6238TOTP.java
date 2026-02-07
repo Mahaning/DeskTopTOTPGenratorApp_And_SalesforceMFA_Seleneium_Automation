@@ -1,29 +1,31 @@
 package TotpDesktopApp;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
 import java.time.Instant;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 public final class RFC6238TOTP {
 
-    private static final int TIME_STEP = 30;
-    private static final int DIGITS = 6;
-    private static final String HMAC = "HmacSHA1";
+    private static final int intTIME_STEP = 30;
+    private static final int intDIGITS = 6;
+    private static final String strHMAC = "HmacSHA1";
 
     private RFC6238TOTP() {}
 
     public static String generate(String base32Secret) {
-        long counter = Instant.now().getEpochSecond() / TIME_STEP;
+        long counter = Instant.now().getEpochSecond() / intTIME_STEP;
         return generateOtp(base32Decode(base32Secret), counter);
     }
 
-    private static String generateOtp(byte[] key, long counter) {
+    /* Core TOTP algorithm */
+    private static String generateOtp(byte[] key, long lngCounter) {
         try {
-            byte[] counterBytes = ByteBuffer.allocate(8).putLong(counter).array();
-            Mac mac = Mac.getInstance(HMAC);
-            mac.init(new SecretKeySpec(key, HMAC));
+            byte[] counterBytes = ByteBuffer.allocate(8).putLong(lngCounter).array();
+            Mac mac = Mac.getInstance(strHMAC);
+            mac.init(new SecretKeySpec(key, strHMAC));
             byte[] hash = mac.doFinal(counterBytes);
 
             int offset = hash[hash.length - 1] & 0x0F;
@@ -33,7 +35,7 @@ public final class RFC6238TOTP {
                     ((hash[offset + 2] & 0xFF) << 8) |
                     (hash[offset + 3] & 0xFF);
 
-            int otp = binary % (int) Math.pow(10, DIGITS);
+            int otp = binary % (int) Math.pow(10, intDIGITS);
             return String.format("%06d", otp);
 
         } catch (GeneralSecurityException e) {
@@ -50,12 +52,12 @@ public final class RFC6238TOTP {
         int bits = 0, value = 0;
 
         for (char c : base32.toCharArray()) {
-            int index = alphabet.indexOf(c);
-            if (index < 0) {
+            int intIndex = alphabet.indexOf(c);
+            if (intIndex < 0) {
                 throw new IllegalArgumentException("Invalid Base32 character: " + c);
             }
 
-            value = (value << 5) | index;
+            value = (value << 5) | intIndex;
             bits += 5;
 
             if (bits >= 8) {
