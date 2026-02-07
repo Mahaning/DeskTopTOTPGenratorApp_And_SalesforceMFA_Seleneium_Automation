@@ -60,29 +60,7 @@ mvn exec:java -Dexec.mainClass="TotpDesktopApp.TotpDesktopApp"
 1. Launch the application
 2. Type or select a user from the dropdown list
 3. The OTP code will automatically generate (6 digits)
-4. Cli```
-┌─────────────────────────────────────────┐
-│           🔐 OTP Verification           │
-│                                         │
-│     Select user to generate code        │
-│                                         │
-│  ┌────────────────────────────────┐    │
-│  │ automation.user1          ▼    │    │
-│  └────────────────────────────────┘    │
-│                                         │
-│     ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐    │
-│     │ 1 │ │ 2 │ │ 3 │ │ 4 │ │ 5 │    │
-│     └───┘ └───┘ └───┘ └───┘ └───┘    │
-│     ┌───┐                               │
-│     │ 6 │                               │
-│     └───┘                               │
-│                                         │
-│          🕐 Expires in: 18s              │
-│                                         │
-│          [📋 Copy OTP]                  │
-│          ✅ Copied!                      │
-│                                         │
-└─────────────────────────────────────────┘ck **"📋 Copy OTP"** to copy to clipboard
+4. Click **"📋 Copy OTP"** to copy to clipboard
 5. The timer shows remaining seconds before code expires
 6. Select a new user to generate a different code
 
@@ -336,3 +314,4 @@ Planned features and improvements for upcoming releases:
 **Version**: 0.0.1-SNAPSHOT
 
 #
+
