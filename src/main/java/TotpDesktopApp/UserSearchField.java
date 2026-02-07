@@ -25,7 +25,7 @@ public class UserSearchField extends JPanel {
         setLayout(new BorderLayout());
         setOpaque(false);
 
-        // 🌿 TEXT FIELD (soft + rounded)
+        // TEXT FIELD (soft + rounded)
         field.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         field.setBorder(new RoundedBorder(16, new Color(210, 210, 210)));
         field.setBackground(Color.WHITE);
@@ -33,7 +33,7 @@ public class UserSearchField extends JPanel {
         field.setPreferredSize(new Dimension(260, 40));
         add(field, BorderLayout.CENTER);
 
-        // 🌿 SUGGESTION WINDOW
+        // SUGGESTION WINDOW
         suggestionWindow = new JWindow();
         suggestionWindow.setFocusableWindowState(false);
         setBorder(new RoundedBorder(16, new Color(210, 210, 210)));
@@ -53,14 +53,14 @@ public class UserSearchField extends JPanel {
 
         suggestionWindow.add(scroll);
 
-        // 🔎 FILTER WHILE TYPING
+        // FILTER WHILE TYPING
         field.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { updateSuggestions(); }
             public void removeUpdate(DocumentEvent e) { updateSuggestions(); }
             public void changedUpdate(DocumentEvent e) {}
         });
 
-        // 🖱 MOUSE SELECTION
+        // MOUSE SELECTION
         suggestionList.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 selectUser();
@@ -115,7 +115,7 @@ public class UserSearchField extends JPanel {
             }
         });
 
-        // 🔚 CLOSE ON FOCUS LOST
+        // CLOSE ON FOCUS LOST
         field.addFocusListener(new FocusAdapter() {
             public void focusLost(FocusEvent e) {
                 SwingUtilities.invokeLater(() -> hideSuggestions());
