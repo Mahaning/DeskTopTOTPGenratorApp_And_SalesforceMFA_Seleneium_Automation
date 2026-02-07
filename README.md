@@ -60,7 +60,29 @@ mvn exec:java -Dexec.mainClass="TotpDesktopApp.TotpDesktopApp"
 1. Launch the application
 2. Type or select a user from the dropdown list
 3. The OTP code will automatically generate (6 digits)
-4. Click **"📋 Copy OTP"** to copy to clipboard
+4. Cli```
+┌─────────────────────────────────────────┐
+│           🔐 OTP Verification           │
+│                                         │
+│     Select user to generate code        │
+│                                         │
+│  ┌────────────────────────────────┐    │
+│  │ automation.user1          ▼    │    │
+│  └────────────────────────────────┘    │
+│                                         │
+│     ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐    │
+│     │ 1 │ │ 2 │ │ 3 │ │ 4 │ │ 5 │    │
+│     └───┘ └───┘ └───┘ └───┘ └───┘    │
+│     ┌───┐                               │
+│     │ 6 │                               │
+│     └───┘                               │
+│                                         │
+│          🕐 Expires in: 18s              │
+│                                         │
+│          [📋 Copy OTP]                  │
+│          ✅ Copied!                      │
+│                                         │
+└─────────────────────────────────────────┘ck **"📋 Copy OTP"** to copy to clipboard
 5. The timer shows remaining seconds before code expires
 6. Select a new user to generate a different code
 
@@ -298,16 +320,7 @@ Planned features and improvements for upcoming releases:
 
 ### Security & Authentication
 - [ ] **Login To App** - Add authentication to access the desktop app itself
-
-
-### DevOps & Deployment
-- [ ] **Docker Support** - Containerized deployment
-- [ ] **GitHub Actions CI/CD** - Automated build and test pipeline
-- [ ] **Release Automation** - Automated versioning and package distribution
-- [ ] **Installer Packages** - Windows MSI, macOS DMG, Linux DEB packages
-
----
-
+- [ ] **Role-Based Access Control** - Different permissions for admin vs regular users
 
 ## 🎓 References
 

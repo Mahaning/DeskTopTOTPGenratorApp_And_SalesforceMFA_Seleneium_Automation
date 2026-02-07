@@ -11,8 +11,8 @@ public class SalesforceLoginTest {
 
     public static void main(String[] args) {
 
-        String username = "<Username>"; // Replace with actual username
-        String password = "<Password>"; // Replace with actual password
+        String username = "<username>"; // Replace with actual username
+        String password = "<password>"; // Replace with actual password
         String totpSecret = TotpSecretStore.getSecret(username);
         if (totpSecret == null) {
             throw new RuntimeException("TOTP secret not found for user: " + username);
